@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zubair Davids — IT Portfolio & Labs</title>
+  <meta name="description" content="Zubair Davids IT Resume, Labs, and Portfolio." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --text: #e6eef8;
+      --accent: #2dd4bf;
+      --highlight: #60a5fa;
+      --muted: #9aa6bf;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f1724;
+      --accent: #2dd4bf;
+      --highlight: #0284c7;
+      --muted: #475569;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      scroll-behavior: smooth;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--highlight));
+      color: #012;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin: 8px 0 0; font-size: 1rem; }
+
+    nav {
+      background-color: var(--card);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .nav-links { display: flex; gap: 30px; }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -3px;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--card);
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        padding: 16px 0;
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    section {
+      width: 90%;
+      max-width: 1100px;
+      margin: 50px 0;
+      padding: 20px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out, background 0.4s, color 0.4s;
+    }
+
+    section.visible { opacity: 1; transform: translateY(0); }
+    h2 { color: var(--accent); margin-bottom: 10px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 20px rgba(45,212,191,0.3);
+    }
+
+    .card h3 { margin-top: 0; color: var(--highlight); }
+    ul { color: var(--muted); font-size: 0.95rem; }
+
+    .btn {
+      background: var(--accent);
+      border: none;
+      color: #012;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn:hover { transform: scale(1.05); background: var(--highlight); }
+
+    .social-icons a {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin: 0 10px;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: var(--highlight);
+      transform: scale(1.1);
+    }
+
+    footer {
+      background-color: var(--card);
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9rem;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    @keyframes fadeInDown { from {opacity: 0; transform: translateY(-30px);} to {opacity: 1; transform: translateY(0);} }
+    @keyframes fadeInUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Zubair Davids</h1>
+    <p>Desktop Support Technician – IT Engineer | Cape Town, South Africa</p>
+    <p><a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">zubair.davids@outlook.com</a> • (+27) 78 265 7947</p>
+    <a href="resume.pdf" class="btn">Download Resume</a>
+  </header>
+
+  <nav>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#labs">Labs</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle">☀️ Light</button>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am an IT Support Technician and Field Engineer with hands-on experience in troubleshooting, hardware maintenance, and IT infrastructure operations within high-demand airport environments. My focus is on continuous learning, building technical labs, and progressing into cloud and cybersecurity fields.</p>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>SITA Aero / CompuClinic</h3>
+        <p><strong>Desktop Support Technician — Nov 2023 – Present</strong></p>
+        <ul>
+          <li>Delivered on-site IT support for Airport Infrastructure (CUTE, CUSS, BRS).</li>
+          <li>Resolved printer, scanner, and workstation issues for multiple airlines.</li>
+          <li>Supported applications like Amadeus CM/FM, Radixx DCS, improving uptime.</li>
+          <li>Ensured SLA compliance via ServiceGateway/ServiceNow.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Self-Employed</h3>
+        <p><strong>PC Repairs and Reseller — 2017 – 2022</strong></p>
+        <ul>
+          <li>Refurbished and upgraded pre-owned PCs and laptops for resale.</li>
+          <li>Performed hardware upgrades, system optimization, and maintenance.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>MANCOSA</strong> — Higher Certificate in Information Technology (Jan 2025 – Dec 2025)</li>
+      <li><strong>IT Academy</strong> — A+, N+, and CCNA Bundle (Nov 2021 – Dec 2022)</li>
+      <li><strong>Darul Islam Islamic HS</strong> — Matric (2019)</li>
+    </ul>
+    <h2>Certifications</h2>
+    <p>CompTIA A+ • Network+ • ISC² CC • IBM Cybersecurity Fundamentals • (In Progress) Security+ • CCNA • Azure & 365 Fundamentals</p>
+  </section>
+
+  <section id="labs">
+    <h2>Labs & Projects</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Azure AD Domain Setup</h3>
+        <p>Configured Azure AD, connected Windows VMs, and implemented Group Policies.</p>
+        <p><strong>Tools:</strong> Azure • Windows Server • PowerShell</p>
+      </div>
+      <div class="card">
+        <h3>Network Segmentation Lab</h3>
+        <p>Designed VLANs and ACLs using Cisco IOS in GNS3 for secure network segmentation.</p>
+        <p><strong>Tools:</strong> Cisco IOS • GNS3</p>
+      </div>
+      <div class="card">
+        <h3>Linux Security Automation</h3>
+        <p>Developed Ansible playbooks for automating Linux hardening and compliance tasks.</p>
+        <p><strong>Tools:</strong> Ubuntu • Ansible • Bash</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Info</h2>
+    <p>Email: <a href="mailto:zubair.davids@outlook.com">Zubair.Davids@Outlook.com</a></p>
+    <p>Phone: (+27) 78 265 7947</p>
+    <p>Location: Cape Town, South Africa</p>
+    <div class="social-icons">
+      <a href="http://www.linkedin.com/in/zubair-davids" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://zubair-a-davids.github.io/Resume/" target="_blank"><i class="fa-solid fa-globe"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    Zubair Davids — IT Portfolio and Labs | Built with HTML/CSS/JS
+  </footer>
+
+  <script>
+    // Fade-in sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      if(current === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.textContent = '☀️ Light';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '🌙 Dark';
+      }
+    });
+  </script>
+</body>
+</html>
