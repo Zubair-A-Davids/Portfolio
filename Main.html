@@ -3,10 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zubair Davids — IT Portfolio & Labs</title>
+  <title>Zubair Davids - IT Portfolio & Labs</title>
   <meta name="description" content="Zubair Davids IT Resume, Labs, and Portfolio." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     :root {
       --bg: #0f1724;
       --card: #0b1220;
@@ -24,6 +28,10 @@
       --muted: #475569;
     }
 
+    html {
+      overflow-x: hidden;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
@@ -32,6 +40,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      min-height: 100vh;
       scroll-behavior: smooth;
       transition: background 0.4s, color 0.4s;
     }
@@ -54,12 +64,17 @@
       justify-content: center;
       align-items: center;
       gap: 30px;
+      width: 100%;
       padding: 12px;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0,0,0,0.4);
       animation: fadeIn 1.2s ease;
+    }
+
+    #rightAligned {
+    text-align: right;
     }
 
     .menu-toggle {
@@ -87,7 +102,12 @@
       color: var(--bg);
     }
 
-    .nav-links { display: flex; gap: 30px; }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     nav a {
       color: var(--text);
@@ -95,6 +115,7 @@
       font-weight: 600;
       position: relative;
       transition: color 0.3s;
+      overflow-wrap: anywhere;
     }
 
     nav a::after {
@@ -111,7 +132,26 @@
     nav a:hover::after { width: 100%; }
 
     @media (max-width: 768px) {
+      header {
+        padding: 32px 16px;
+      }
+
+      header h1 {
+        font-size: 1.9rem;
+      }
+
+      nav {
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+
       .menu-toggle { display: block; }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
       .nav-links {
         display: none;
         flex-direction: column;
@@ -122,8 +162,56 @@
         top: 56px;
         left: 0;
         padding: 16px 0;
+        gap: 18px;
       }
+
       .nav-links.open { display: flex; }
+
+      section {
+        width: calc(100% - 24px);
+        margin: 28px 0;
+        padding: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      #rightAligned {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.7rem;
+      }
+
+      header p,
+      #contact p,
+      footer {
+        font-size: 0.95rem;
+      }
+
+      section {
+        width: calc(100% - 16px);
+        padding: 16px;
+        border-radius: 10px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .theme-toggle {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+      }
+
+      .social-icons a {
+        margin: 0 8px;
+      }
     }
 
     section {
@@ -186,6 +274,13 @@
       transform: scale(1.1);
     }
 
+    header p,
+    .card p,
+    li,
+    #contact p {
+      overflow-wrap: anywhere;
+    }
+
     footer {
       background-color: var(--card);
       color: var(--muted);
@@ -204,9 +299,10 @@
 <body>
   <header>
     <h1>Zubair Davids</h1>
-    <p>Desktop Support Technician – IT Engineer | Cape Town, South Africa</p>
-    <p><a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">zubair.davids@outlook.com</a> • (+27) 78 265 7947</p>
-    <a href="resume.pdf" class="btn">Download Resume</a>
+    <p>Desktop Support Technician</p>
+    <p>IT Engineer Field Ops</p>
+    <p><a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">Zubair.Davids@Outlook.com</a> • (+27) 78 265 7947 • Cape Town, South Africa </p>
+    <a href="Resume.pdf" class="btn">Download Resume</a>
   </header>
 
   <nav>
@@ -223,16 +319,18 @@
 
   <section id="about">
     <h2>About Me</h2>
-    <p>I am an IT Support Technician and Field Engineer with hands-on experience in troubleshooting, hardware maintenance, and IT infrastructure operations within high-demand airport environments. My focus is on continuous learning, building technical labs, and progressing into cloud and cybersecurity fields.</p>
+    <p>I am an IT Support Technician and Field Engineer Ops with hands-on experience in troubleshooting, hardware maintenance, and IT infrastructure operations within high-demand airport environments. My focus is on continuous learning, building technical labs, and progressing into cloud and cybersecurity fields.</p>
   </section>
 
   <section id="experience">
     <h2>Experience</h2>
     <div class="grid">
       <div class="card">
-        <h3>SITA Aero / CompuClinic</h3>
-        <p><strong>Desktop Support Technician — Nov 2023 – Present</strong></p>
+        <h3>CompuClinic Solutions / SITA</h3>
+        <p><strong>Desktop Support Technician</strong></p>
+          <p id="rightAligned"><strong>Nov 2023 - Present</strong></p>
         <ul>
+          <li>Contracted to CompuClinic Solutions and positioned at SITA as a IT Engineer Field Ops.</li>
           <li>Delivered on-site IT support for Airport Infrastructure (CUTE, CUSS, BRS).</li>
           <li>Resolved printer, scanner, and workstation issues for multiple airlines.</li>
           <li>Supported applications like Amadeus CM/FM, Radixx DCS, improving uptime.</li>
@@ -241,7 +339,8 @@
       </div>
       <div class="card">
         <h3>Self-Employed</h3>
-        <p><strong>PC Repairs and Reseller — 2017 – 2022</strong></p>
+        <p><strong>At Home PC Repairs and Reseller</strong></p>
+        <p id="rightAligned"><strong>2017 - 2022</strong></p>
         <ul>
           <li>Refurbished and upgraded pre-owned PCs and laptops for resale.</li>
           <li>Performed hardware upgrades, system optimization, and maintenance.</li>
@@ -253,9 +352,9 @@
   <section id="education">
     <h2>Education</h2>
     <ul>
-      <li><strong>MANCOSA</strong> — Higher Certificate in Information Technology (Jan 2025 – Dec 2025)</li>
-      <li><strong>IT Academy</strong> — A+, N+, and CCNA Bundle (Nov 2021 – Dec 2022)</li>
-      <li><strong>Darul Islam Islamic HS</strong> — Matric (2019)</li>
+      <li><strong>MANCOSA</strong> - Higher Certificate in Information Technology (Jan 2025 – Dec 2025)</li>
+      <li><strong>IT Academy</strong> - A+, N+, and CCNA Bundle (Nov 2021 – Dec 2022)</li>
+      <li><strong>Darul Islam Islamic HS</strong> - Matric (2019)</li>
     </ul>
     <h2>Certifications</h2>
     <p>CompTIA A+ • Network+ • ISC² CC • IBM Cybersecurity Fundamentals • (In Progress) Security+ • CCNA • Azure & 365 Fundamentals</p>
@@ -307,8 +406,18 @@
     // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
-    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
     document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
 
     // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
