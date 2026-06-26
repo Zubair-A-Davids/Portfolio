@@ -15,16 +15,16 @@
       --bg: #0f1724;
       --card: #0b1220;
       --text: #e6eef8;
-      --accent: #2dd4bf;
-      --highlight: #60a5fa;
+      --accent: #22c55e;
+      --highlight: #86efac;
       --muted: #9aa6bf;
     }
     [data-theme="light"] {
       --bg: #f8fafc;
       --card: #ffffff;
       --text: #0f1724;
-      --accent: #2dd4bf;
-      --highlight: #0284c7;
+      --accent: #16a34a;
+      --highlight: #4ade80;
       --muted: #475569;
     }
 
@@ -36,6 +36,9 @@
       margin: 0;
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
       background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.18), transparent 34%),
+        linear-gradient(180deg, rgba(134, 239, 172, 0.08), transparent 30%);
       color: var(--text);
       display: flex;
       flex-direction: column;
@@ -55,8 +58,8 @@
       animation: fadeInDown 1s ease;
     }
 
-    header h1 { margin: 0; font-size: 2.2rem; }
-    header p { margin: 8px 0 0; font-size: 1rem; }
+    header h1 { margin: 0; font-size: clamp(1.4rem, 5vw, 2.2rem); }
+    header p { margin: 8px 0 0; font-size: clamp(0.85rem, 3vw, 1rem); }
 
     nav {
       background-color: var(--card);
@@ -212,6 +215,14 @@
       .social-icons a {
         margin: 0 8px;
       }
+
+      .card h3 {
+        font-size: 0.95rem;
+      }
+
+      ul {
+        font-size: 0.88rem;
+      }
     }
 
     section {
@@ -231,6 +242,13 @@
     h2 { color: var(--accent); margin-bottom: 10px; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .stacked-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .stacked-grid .card {
+      padding: 12px;
+    }
     .card {
       background: var(--bg);
       padding: 16px;
@@ -241,10 +259,28 @@
 
     .card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 6px 20px rgba(45,212,191,0.3);
+      box-shadow: 0 6px 20px rgba(34,197,94,0.3);
     }
 
-    .card h3 { margin-top: 0; color: var(--highlight); }
+    .card h3 { margin-top: 0; color: var(--highlight); font-size: clamp(0.95rem, 3.5vw, 1.17rem); }
+    .cert-card {
+      cursor: pointer;
+    }
+    .cert-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .experience-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .experience-meta p {
+      margin: 0;
+      font-size: clamp(0.8rem, 3vw, 1rem);
+    }
     ul { color: var(--muted); font-size: 0.95rem; }
 
     .btn {
@@ -272,6 +308,139 @@
     .social-icons a:hover {
       color: var(--highlight);
       transform: scale(1.1);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2, 8, 23, 0.8);
+      z-index: 1000;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      width: min(980px, 100%);
+      height: min(88vh, 860px);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(134, 239, 172, 0.12));
+    }
+
+    .modal-title {
+      margin: 0;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-open-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .modal-open-link:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 1.35rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      flex: 1;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .modal {
+        padding: 12px;
+      }
+
+      .modal-content {
+        height: 92vh;
+      }
+
+      .modal-title {
+        max-width: 52vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal {
+        padding: 8px;
+      }
+
+      .modal-content {
+        height: 92vh;
+        border-radius: 10px;
+      }
+
+      .modal-header {
+        padding: 10px;
+      }
+
+      .modal-open-link {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+
+      .modal-close {
+        font-size: 1.5rem;
+        padding: 4px 8px;
+      }
     }
 
     header p,
@@ -302,6 +471,10 @@
     <p>Desktop Support Technician</p>
     <p>IT Engineer Field Ops</p>
     <p><a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">Zubair.Davids@Outlook.com</a> • (+27) 78 265 7947 • Cape Town, South Africa </p>
+    <div class="social-icons">
+      <a href="http://www.linkedin.com/in/zubair-davids" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Zubair-A-Davids" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
     <a href="Resume.pdf" class="btn">Download Resume</a>
   </header>
 
@@ -311,24 +484,27 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#education">Education</a>
+      <a href="#certifications">Certifications</a>
       <a href="#labs">Labs</a>
-      <a href="#contact">Contact</a>
     </div>
     <button class="theme-toggle" id="themeToggle">☀️ Light</button>
   </nav>
 
   <section id="about">
     <h2>About Me</h2>
-    <p>I am an IT Support Technician and Field Engineer Ops with hands-on experience in troubleshooting, hardware maintenance, and IT infrastructure operations within high-demand airport environments. My focus is on continuous learning, building technical labs, and progressing into cloud and cybersecurity fields.</p>
+    <p>I am an IT Support Technician and Field Engineer Ops with hands-on experience in troubleshooting, hardware maintenance, and IT infrastructure operations within high-demand airport environments. Positioned at SITA through CompuClinic Solutions at Cape Town International Airport.
+      <br>My focus is on continuous learning, building technical labs, and progressing into cloud, cybersecurity and server infrastructure fields.</p>
   </section>
 
   <section id="experience">
     <h2>Experience</h2>
-    <div class="grid">
+    <div class="grid stacked-grid">
       <div class="card">
         <h3>CompuClinic Solutions / SITA</h3>
-        <p><strong>Desktop Support Technician</strong></p>
-          <p id="rightAligned"><strong>Nov 2023 - Present</strong></p>
+        <div class="experience-meta">
+          <p><strong>Desktop Support Technician</strong></p>
+          <p><strong>Nov 2023 - Present</strong></p>
+        </div>
         <ul>
           <li>Contracted to CompuClinic Solutions and positioned at SITA as a IT Engineer Field Ops.</li>
           <li>Delivered on-site IT support for Airport Infrastructure (CUTE, CUSS, BRS).</li>
@@ -339,8 +515,10 @@
       </div>
       <div class="card">
         <h3>Self-Employed</h3>
-        <p><strong>At Home PC Repairs and Reseller</strong></p>
-        <p id="rightAligned"><strong>2017 - 2022</strong></p>
+        <div class="experience-meta">
+          <p><strong>At Home PC Repairs and Reseller</strong></p>
+          <p><strong>2017 - 2022</strong></p>
+        </div>
         <ul>
           <li>Refurbished and upgraded pre-owned PCs and laptops for resale.</li>
           <li>Performed hardware upgrades, system optimization, and maintenance.</li>
@@ -351,14 +529,132 @@
 
   <section id="education">
     <h2>Education</h2>
-    <ul>
-      <li><strong>MANCOSA</strong> - Higher Certificate in Information Technology (Jan 2025 – Dec 2025)</li>
-      <li><strong>IT Academy</strong> - A+, N+, and CCNA Bundle (Nov 2021 – Dec 2022)</li>
-      <li><strong>Darul Islam Islamic HS</strong> - Matric (2019)</li>
-    </ul>
-    <h2>Certifications</h2>
-    <p>CompTIA A+ • Network+ • ISC² CC • IBM Cybersecurity Fundamentals • (In Progress) Security+ • CCNA • Azure & 365 Fundamentals</p>
+    <div class="grid stacked-grid">
+        <div class="card cert-card" role="button" tabindex="0" data-title="Higher Certificate in Information Technology" data-pdf="certificates/hcit.pdf">
+        <h3>MANCOSA</h3>
+        <div class="experience-meta">
+          <p><strong>Higher Certificate in Information Technology</strong></p>
+          <p><strong>Jan 2025 - Dec 2025</strong></p>
+        </div>
+        <p>[Grade: Distinction]</p>
+        <ul>
+          <li>Computer Hardware and Architecture</li>
+          <li>Essential Business Mathematics</li>
+          <li>Web Development</li>
+          <li>Business Communication</li>
+          <li>Introduction to Information Systems</li>
+          <li>Introduction to Programming</li>
+          <li>Networking Fundamentals</li>
+          <li>Digital Transformation in the Business Environment [Elective]</li>
+        </ul>
+      </div>
+    </div>
+      <div class="card">
+        <h3>IT Academy</h3>
+        <div class="experience-meta">
+          <p><strong>A+, N+ and CCNA Bundle</strong></p>
+          <p><strong>Nov 2021 - Dec 2022</strong></p>
+        </div>
+        <ul>
+          <li>CompTIA A+ (220-1001) & (220-1002)</li>
+          <li>CompTIA N+ (N10-008)</li>
+          <li>CCNA (200-301)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Darul Islam Islamic HS</h3>
+        <div class="experience-meta">
+          <p><strong>Matric</strong></p>
+          <p><strong>2019</strong></p>
+        </div>
+        <ul>
+          <li>English Home Language</li>
+          <li>Afrikaans First Additional Language</li>
+          <li>Arabic</li>
+          <li>Mathematics</li>
+          <li>Business Studies</li>
+          <li>Life Science</li>
+          <li>Life Orientation</li>
+          <li>Geography</li>
+        </ul>
+      </div>
+    </div>
   </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="grid stacked-grid">
+      <div class="card cert-card" role="button" tabindex="0" data-title="CompTIA A+" data-pdf="certificates/CompTIA_A+_ce_certificate.pdf">
+        <h3>CompTIA</h3>
+        <div class="experience-meta">
+          <p><strong>CompTIA A+</strong></p>
+          <p><strong>Mar 2023</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="CompTIA Network+" data-pdf="certificates/CompTIA_Network+_ce_certificate.pdf">
+        <h3>CompTIA</h3>
+        <div class="experience-meta">
+          <p><strong>CompTIA Network+</strong></p>
+          <p><strong>Feb 2024</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="ISC2 CC" data-pdf="certificates/isc2-cc.pdf">
+        <h3>ISC²</h3>
+        <div class="experience-meta">
+          <p><strong>ISC² - CC (Certified in Cybersecurity)</strong></p>
+          <p><strong>Mar 2025</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="IBM Cybersecurity Fundamentals" data-pdf="certificates/Cybersecurity_Fundamentals_Badge20241121-27-f668gh.pdf">
+        <h3>IBM</h3>
+        <div class="experience-meta">
+          <p><strong>Cybersecurity Fundamentals</strong></p>
+          <p><strong>Nov 2024</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="DEX Platform Administrator" data-pdf="certificates/Bronze_Certification_-_DEX_Platform_Administrator.pdf">
+        <h3>1E - TeamViewer</h3>
+        <div class="experience-meta">
+          <p><strong>Bronze Certification - DEX Platform Administrator</strong></p>
+          <p><strong>May 2026</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="Implementing and Maintaining Information Systems" data-pdf="certificates/implementing-maintaining-information-systems.pdf">
+        <h3>SpecCon - LabourNet LMS</h3>
+        <div class="experience-meta">
+          <p><strong>Certificate - Implementing and Maintaining Information Systems</strong></p>
+          <p><strong>Nov 2025</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="IT Support Technical Skills Helpdesk" data-pdf="certificates/it-support-technical-skills-helpdesk.pdf">
+        <h3>UDEMY</h3>
+        <div class="experience-meta">
+          <p><strong>IT Support Technical Skills Helpdesk</strong></p>
+          <p><strong>Jun 2022</strong></p>
+        </div>
+      </div>
+      <div class="card cert-card" role="button" tabindex="0" data-title="Certificate in Cyber Security" data-pdf="certificates/certificate-in-cyber-security.pdf">
+        <h3>Upskillist</h3>
+        <div class="experience-meta">
+          <p><strong>Certificate in Cyber Security</strong></p>
+          <p><strong>Sep 2024</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="certModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="certModalTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="certModalTitle">Certification</h3>
+        <div class="modal-actions">
+          <a class="modal-open-link" id="certPdfLink" href="#" target="_blank" rel="noopener noreferrer">Open PDF</a>
+          <button class="modal-close" id="certModalClose" aria-label="Close certification popup">&times;</button>
+        </div>
+      </div>
+      <iframe class="pdf-frame" id="certPdfFrame" title="Certification PDF preview"></iframe>
+    </div>
+  </div>
 
   <section id="labs">
     <h2>Labs & Projects</h2>
@@ -381,19 +677,8 @@
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact Info</h2>
-    <p>Email: <a href="mailto:zubair.davids@outlook.com">Zubair.Davids@Outlook.com</a></p>
-    <p>Phone: (+27) 78 265 7947</p>
-    <p>Location: Cape Town, South Africa</p>
-    <div class="social-icons">
-      <a href="http://www.linkedin.com/in/zubair-davids" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://zubair-a-davids.github.io/Resume/" target="_blank"><i class="fa-solid fa-globe"></i></a>
-    </div>
-  </section>
-
   <footer>
-    Zubair Davids — IT Portfolio and Labs | Built with HTML/CSS/JS
+    Zubair Davids - IT Portfolio and Labs | Built with HTML/CSS/JS
   </footer>
 
   <script>
@@ -429,6 +714,58 @@
       } else {
         document.documentElement.setAttribute('data-theme', 'light');
         themeToggle.textContent = '🌙 Dark';
+      }
+    });
+
+    // Certification modal
+    const certModal = document.getElementById('certModal');
+    const certModalClose = document.getElementById('certModalClose');
+    const certModalTitle = document.getElementById('certModalTitle');
+    const certPdfFrame = document.getElementById('certPdfFrame');
+    const certPdfLink = document.getElementById('certPdfLink');
+    const certCards = document.querySelectorAll('.cert-card');
+
+    const openCertModal = (title, pdfPath) => {
+      certModalTitle.textContent = title;
+      certPdfFrame.src = pdfPath || '';
+      certPdfLink.href = pdfPath || '#';
+      certModal.classList.add('open');
+      certModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    };
+
+    const closeCertModal = () => {
+      certModal.classList.remove('open');
+      certModal.setAttribute('aria-hidden', 'true');
+      certPdfFrame.src = '';
+      certPdfLink.href = '#';
+      document.body.classList.remove('modal-open');
+    };
+
+    certCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        openCertModal(card.dataset.title || 'Certification', card.dataset.pdf || '');
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCertModal(card.dataset.title || 'Certification', card.dataset.pdf || '');
+        }
+      });
+    });
+
+    certModalClose.addEventListener('click', closeCertModal);
+
+    certModal.addEventListener('click', (event) => {
+      if (event.target === certModal) {
+        closeCertModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && certModal.classList.contains('open')) {
+        closeCertModal();
       }
     });
   </script>
