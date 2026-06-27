@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Zubair Davids - IT Portfolio & Labs</title>
   <meta name="description" content="Zubair Davids IT Resume, Labs, and Portfolio." />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://picsum.photos" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * {
@@ -183,6 +186,14 @@
       #rightAligned {
         text-align: left;
       }
+
+      .lab-card {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-carousel {
+        margin-top: 6px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -236,6 +247,8 @@
       opacity: 0;
       transform: translateY(40px);
       transition: all 0.8s ease-out, background 0.4s, color 0.4s;
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 700px;
     }
 
     section.visible { opacity: 1; transform: translateY(0); }
@@ -263,6 +276,115 @@
     }
 
     .card h3 { margin-top: 0; color: var(--highlight); font-size: clamp(0.95rem, 3.5vw, 1.17rem); }
+    .labs-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .lab-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .lab-copy {
+      min-width: 0;
+    }
+    .lab-copy p {
+      margin: 0 0 10px;
+    }
+    .lab-github-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin: 8px 0 0;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .lab-github-link i {
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .lab-github-link:hover {
+      color: var(--highlight);
+      text-decoration: underline;
+    }
+    .lab-carousel {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(2, 8, 23, 0.4);
+    }
+    .lab-slides {
+      display: flex;
+      transition: transform 0.35s ease;
+      width: 100%;
+    }
+    .lab-slide {
+      min-width: 100%;
+      margin: 0;
+    }
+    .lab-slide img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      display: block;
+      background: rgba(2, 8, 23, 0.7);
+    }
+    .lab-caption {
+      margin: 0;
+      padding: 8px 10px 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(15, 23, 36, 0.55);
+    }
+    .lab-nav {
+      position: absolute;
+      top: calc(50% - 28px);
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      z-index: 2;
+    }
+    .lab-nav:hover {
+      background: rgba(0,0,0,0.75);
+    }
+    .lab-nav.prev {
+      left: 8px;
+    }
+    .lab-nav.next {
+      right: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .lab-card {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-carousel {
+        margin-top: 6px;
+      }
+
+      .lab-slide img {
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+      }
+    }
+
     .cert-card {
       cursor: pointer;
     }
@@ -271,11 +393,18 @@
       outline-offset: 2px;
     }
     .experience-meta {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: baseline;
-      gap: 8px;
-      flex-wrap: wrap;
+      column-gap: 8px;
+    }
+    .experience-meta > :first-child {
+      min-width: 0;
+    }
+    .experience-meta > :last-child {
+      justify-self: end;
+      text-align: right;
+      white-space: nowrap;
     }
     .experience-meta p {
       margin: 0;
@@ -463,14 +592,29 @@
     @keyframes fadeInDown { from {opacity: 0; transform: translateY(-30px);} to {opacity: 1; transform: translateY(0);} }
     @keyframes fadeInUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
     @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      section {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Zubair Davids</h1>
-    <p>Desktop Support Technician</p>
-    <p>IT Engineer Field Ops</p>
-    <p><a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">Zubair.Davids@Outlook.com</a> • (+27) 78 265 7947 • Cape Town, South Africa </p>
+    <h4>Desktop Support Technician <br>[IT Engineer Field Ops]</h4>
+    <p>Cape Town, South Africa • (+27) 78 265 7947</p>
+    <a href="mailto:zubair.davids@outlook.com" style="color:#012; font-weight:700">Zubair.Davids@Outlook.com</a>
     <div class="social-icons">
       <a href="http://www.linkedin.com/in/zubair-davids" target="_blank"><i class="fab fa-linkedin"></i></a>
       <a href="https://github.com/Zubair-A-Davids" target="_blank"><i class="fab fa-github"></i></a>
@@ -509,8 +653,13 @@
           <li>Contracted to CompuClinic Solutions and positioned at SITA as a IT Engineer Field Ops.</li>
           <li>Delivered on-site IT support for Airport Infrastructure (CUTE, CUSS, BRS).</li>
           <li>Resolved printer, scanner, and workstation issues for multiple airlines.</li>
-          <li>Supported applications like Amadeus CM/FM, Radixx DCS, improving uptime.</li>
-          <li>Ensured SLA compliance via ServiceGateway/ServiceNow.</li>
+          <li>Provided BRS (Baggage Reconciliation System) support for baggage and ground-handler handheld terminal devices, as well as SITA Bag Management support.</li>
+          <li>Tracked and Repaired Handheld Terminal Devices and provided replacements to ground handlers.</li>
+          <li>Resolved KIOSK/CUSS Self-Service Machine issues.</li>
+          <li>Provided Monthly and Weekly Maintenance on SITA Airport Infrastructure.</li>
+          <li>Supported airline applications and Departure Control Systems like Amadeus CM/FM, Radixx DCS and Sabre</li>
+          <li>Provided support for Microsoft 365, Outlook/Email and Microsoft MFA issues for South African Airways Staff.</li>
+          <li>Ensured SLA compliance via ServiceGateway/ServiceNow and escalated complex issue to Senior Engineers when required.</li>
         </ul>
       </div>
       <div class="card">
@@ -520,8 +669,9 @@
           <p><strong>2017 - 2022</strong></p>
         </div>
         <ul>
-          <li>Refurbished and upgraded pre-owned PCs and laptops for resale.</li>
-          <li>Performed hardware upgrades, system optimization, and maintenance.</li>
+          <li>Bought incomplete PC's and components on Gumtree and Facebook marketplace to upgrade and resell.</li>
+          <li>Performed hardware upgrades, system optimization, and maintenance on customers' PCs and laptops.</li>
+          <li>Provided remote and in-person technical support and troubleshooting for clients through AnyDesk and TeamViewer.</li>
         </ul>
       </div>
     </div>
@@ -531,12 +681,15 @@
     <h2>Education</h2>
     <div class="grid stacked-grid">
         <div class="card cert-card" role="button" tabindex="0" data-title="Higher Certificate in Information Technology" data-pdf="certificates/hcit.pdf">
-        <h3>MANCOSA</h3>
+        <div class="experience-meta">
+          <h3>MANCOSA</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>Higher Certificate in Information Technology</strong></p>
           <p><strong>Jan 2025 - Dec 2025</strong></p>
         </div>
-        <p>[Grade: Distinction]</p>
+        <p style="font-size: 0.75rem;"><em>[Grade: Distinction]</em></p>
         <ul>
           <li>Computer Hardware and Architecture</li>
           <li>Essential Business Mathematics</li>
@@ -545,7 +698,7 @@
           <li>Introduction to Information Systems</li>
           <li>Introduction to Programming</li>
           <li>Networking Fundamentals</li>
-          <li>Digital Transformation in the Business Environment [Elective]</li>
+          <li>Digital Transformation in the Business Environment <em>[Elective]</em></li>
         </ul>
       </div>
     </div>
@@ -562,9 +715,9 @@
         </ul>
       </div>
       <div class="card">
-        <h3>Darul Islam Islamic HS</h3>
+        <h3>Darul Islam Islamic High School</h3>
         <div class="experience-meta">
-          <p><strong>Matric</strong></p>
+          <p><strong>Grade 12 - Matric</strong></p>
           <p><strong>2019</strong></p>
         </div>
         <ul>
@@ -585,56 +738,80 @@
     <h2>Certifications</h2>
     <div class="grid stacked-grid">
       <div class="card cert-card" role="button" tabindex="0" data-title="CompTIA A+" data-pdf="certificates/CompTIA_A+_ce_certificate.pdf">
-        <h3>CompTIA</h3>
+        <div class="experience-meta">
+          <h3>CompTIA</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>CompTIA A+</strong></p>
           <p><strong>Mar 2023</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="CompTIA Network+" data-pdf="certificates/CompTIA_Network+_ce_certificate.pdf">
-        <h3>CompTIA</h3>
+        <div class="experience-meta">
+          <h3>CompTIA</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>CompTIA Network+</strong></p>
           <p><strong>Feb 2024</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="ISC2 CC" data-pdf="certificates/isc2-cc.pdf">
-        <h3>ISC²</h3>
+        <div class="experience-meta">
+          <h3>ISC²</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>ISC² - CC (Certified in Cybersecurity)</strong></p>
           <p><strong>Mar 2025</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="IBM Cybersecurity Fundamentals" data-pdf="certificates/Cybersecurity_Fundamentals_Badge20241121-27-f668gh.pdf">
-        <h3>IBM</h3>
+        <div class="experience-meta">
+          <h3>IBM</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>Cybersecurity Fundamentals</strong></p>
           <p><strong>Nov 2024</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="DEX Platform Administrator" data-pdf="certificates/Bronze_Certification_-_DEX_Platform_Administrator.pdf">
-        <h3>1E - TeamViewer</h3>
+        <div class="experience-meta">
+          <h3>1E - TeamViewer</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>Bronze Certification - DEX Platform Administrator</strong></p>
           <p><strong>May 2026</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="Implementing and Maintaining Information Systems" data-pdf="certificates/implementing-maintaining-information-systems.pdf">
-        <h3>SpecCon - LabourNet LMS</h3>
+        <div class="experience-meta">
+          <h3>SpecCon - LabourNet LMS</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>Certificate - Implementing and Maintaining Information Systems</strong></p>
           <p><strong>Nov 2025</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="IT Support Technical Skills Helpdesk" data-pdf="certificates/it-support-technical-skills-helpdesk.pdf">
-        <h3>UDEMY</h3>
+        <div class="experience-meta">
+          <h3>UDEMY</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>IT Support Technical Skills Helpdesk</strong></p>
           <p><strong>Jun 2022</strong></p>
         </div>
       </div>
       <div class="card cert-card" role="button" tabindex="0" data-title="Certificate in Cyber Security" data-pdf="certificates/certificate-in-cyber-security.pdf">
-        <h3>Upskillist</h3>
+        <div class="experience-meta">
+          <h3>Upskillist</h3>
+          <p style="font-size: 0.75rem;"><em>[PDF]</em></p>
+        </div>
         <div class="experience-meta">
           <p><strong>Certificate in Cyber Security</strong></p>
           <p><strong>Sep 2024</strong></p>
@@ -658,21 +835,100 @@
 
   <section id="labs">
     <h2>Labs & Projects</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>CA Launcher</h3>
-        <p>CA Launcher (Compact App Launcher) is a user-friendly application designed to help users manage and launch their frequently used files and scripts from a single interface.</p>
-        <p><strong>Tools:</strong> Built using Python and the Tkinter library for GUI.</p>
+    <div class="grid labs-grid">
+      <div class="card lab-card">
+        <div class="lab-copy">
+          <h3>CA Launcher</h3>
+          <p>CA Launcher (Compact App Launcher) is a user-friendly application designed to help users manage and launch their frequently used files and scripts from a single interface.</p>
+          <p>Built using Python and the Tkinter library, it provides an intuitive graphical user interface (GUI) for easy interaction.</p>
+            <h4>Features</h4>
+              <ul>
+                <li>Add and organize shortcuts to files, scripts, and documents.</li>
+                <li>Assign custom names, descriptions, and icons to each shortcut.</li>
+                <li>Edit or remove shortcuts as needed.</li>
+                <li>Launch files and scripts directly from the application.</li>
+                <li>Simple and intuitive graphical user interface.</li>
+              </ul>
+              <br>
+              <br>
+          <a class="lab-github-link" href="https://github.com/Zubair-A-Davids/CA-Launcher" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i><span>CA Launcher on GitHub</span></a>
+        </div>
+        <div class="lab-carousel" data-carousel>
+          <button class="lab-nav prev" type="button" aria-label="Show previous image">&#10094;</button>
+          <div class="lab-slides">
+            <figure class="lab-slide">
+              <img src="projects\CA Launcher\CA_Launcher_1.png" alt="CA Launcher Main Window" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Launcher Selection Window which shows all available applications/Scripts and their descriptions.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="projects\CA Launcher\CA_Launcher_2.png" alt="CA Launcher Add Item Info Windows" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">You will be able to select any Application, Batch File, or Script that will be saved to the list for execution. The saved items will be saved in the items.json file.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="projects\CA Launcher\CA_Launcher_3.png" alt="CA Launcher Add Item Info Windows" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">You can name the item, give it a description, and include an optional icon.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="projects\CA Launcher\CA_Launcher_4.png" alt="CA Launcher Main Window" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">You can double tap an item to execute it immediately.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="projects\CA Launcher\CA_Launcher_5.png" alt="CA Launcher About Window" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">About CA Launcher.</figcaption>
+            </figure>
+          </div>
+          <button class="lab-nav next" type="button" aria-label="Show next image">&#10095;</button>
+        </div>
       </div>
-      <div class="card">
-        <h3>Network Segmentation Lab</h3>
-        <p>Designed VLANs and ACLs using Cisco IOS in GNS3 for secure network segmentation.</p>
-        <p><strong>Tools:</strong> Cisco IOS • GNS3</p>
+      <div class="card lab-card">
+        <div class="lab-copy">
+          <h3>Network Segmentation Lab</h3>
+          <p>Designed VLANs and ACLs using Cisco IOS in GNS3 for secure network segmentation.</p>
+          <p><strong>Tools:</strong> Cisco IOS • GNS3</p>
+        </div>
+        <div class="lab-carousel" data-carousel>
+          <button class="lab-nav prev" type="button" aria-label="Show previous image">&#10094;</button>
+          <div class="lab-slides">
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1015/640/400" alt="Network topology and VLAN map" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Logical topology with segmented VLAN zones for users, servers, and management.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1048/640/400" alt="ACL validation and traffic filtering test" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">ACL policy validation demonstrating allowed and blocked inter-VLAN traffic flows.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1060/640/400" alt="Router and switch CLI configuration snapshot" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Router and switch CLI snapshot covering trunking, interfaces, and access controls.</figcaption>
+            </figure>
+          </div>
+          <button class="lab-nav next" type="button" aria-label="Show next image">&#10095;</button>
+        </div>
       </div>
-      <div class="card">
-        <h3>Linux Security Automation</h3>
-        <p>Developed Ansible playbooks for automating Linux hardening and compliance tasks.</p>
-        <p><strong>Tools:</strong> Ubuntu • Ansible • Bash</p>
+      <div class="card lab-card">
+        <div class="lab-copy">
+          <h3>Linux Security Automation</h3>
+          <p>Developed Ansible playbooks for automating Linux hardening and compliance tasks.</p>
+          <p><strong>Tools:</strong> Ubuntu • Ansible • Bash</p>
+        </div>
+        <div class="lab-carousel" data-carousel>
+          <button class="lab-nav prev" type="button" aria-label="Show previous image">&#10094;</button>
+          <div class="lab-slides">
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1025/640/400" alt="Ansible playbook execution terminal output" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Playbook run output showing automated system updates and hardened baseline checks.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1033/640/400" alt="Linux host compliance report output" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Compliance result summary for SSH policies, permissions, and service exposure.</figcaption>
+            </figure>
+            <figure class="lab-slide">
+              <img src="https://picsum.photos/id/1050/640/400" alt="Bash automation scripts and logs" loading="lazy" decoding="async" width="640" height="400" />
+              <figcaption class="lab-caption">Automation scripts and logs used for repeatable hardening and audit evidence.</figcaption>
+            </figure>
+          </div>
+          <button class="lab-nav next" type="button" aria-label="Show next image">&#10095;</button>
+        </div>
       </div>
     </div>
   </section>
@@ -767,6 +1023,29 @@
       if (event.key === 'Escape' && certModal.classList.contains('open')) {
         closeCertModal();
       }
+    });
+
+    // Labs image carousels
+    document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+      const slides = carousel.querySelector('.lab-slides');
+      const items = carousel.querySelectorAll('.lab-slide');
+      const prevBtn = carousel.querySelector('.lab-nav.prev');
+      const nextBtn = carousel.querySelector('.lab-nav.next');
+      let index = 0;
+
+      const render = () => {
+        slides.style.transform = `translateX(-${index * 100}%)`;
+      };
+
+      prevBtn.addEventListener('click', () => {
+        index = (index - 1 + items.length) % items.length;
+        render();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        index = (index + 1) % items.length;
+        render();
+      });
     });
   </script>
 </body>
